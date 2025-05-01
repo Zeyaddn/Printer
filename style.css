@@ -1,0 +1,461 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   
+}
+
+body {
+    background-color: #f5f5f5;
+  
+}
+
+/*loader*/
+ 
+    #loader {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: white;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+  
+      .typewriter {
+        --blue: #5C86FF;
+        --blue-dark: #275EFE;
+        --key: #fff;
+        --paper: #EEF0FD;
+        --text: #D3D4EC;
+        --tool: #FBC56C;
+        --duration: 3s;
+        position: relative;
+        animation: bounce05 var(--duration) linear infinite;
+      }
+  
+      .typewriter .slide {
+        width: 92px;
+        height: 20px;
+        border-radius: 3px;
+        margin-left: 14px;
+        transform: translateX(14px);
+        background: linear-gradient(var(--blue), var(--blue-dark));
+        animation: slide05 var(--duration) ease infinite;
+      }
+  
+      .typewriter .slide:before,
+      .typewriter .slide:after,
+      .typewriter .slide i:before {
+        content: "";
+        position: absolute;
+        background: var(--tool);
+      }
+  
+      .typewriter .slide:before {
+        width: 2px;
+        height: 8px;
+        top: 6px;
+        left: 100%;
+      }
+  
+      .typewriter .slide:after {
+        left: 94px;
+        top: 3px;
+        height: 14px;
+        width: 6px;
+        border-radius: 3px;
+      }
+  
+      .typewriter .slide i {
+        display: block;
+        position: absolute;
+        right: 100%;
+        width: 6px;
+        height: 4px;
+        top: 4px;
+        background: var(--tool);
+      }
+  
+      .typewriter .slide i:before {
+        right: 100%;
+        top: -2px;
+        width: 4px;
+        border-radius: 2px;
+        height: 14px;
+      }
+  
+      .typewriter .paper {
+        position: absolute;
+        left: 24px;
+        top: -26px;
+        width: 80px;
+        height: 46px;
+        border-radius: 5px;
+        background: var(--paper);
+        transform: translateY(46px);
+        animation: paper05 var(--duration) linear infinite;
+      }
+  
+      .typewriter .paper:before {
+        content: "Minder";
+        color: #000000;
+       font-family: "Poppins", sans-serif;
+        font-size: 20px;
+        position: absolute;
+        left: 6px;
+        top: 16px;
+        width: 100%;
+      }
+  
+      .typewriter .keyboard {
+        width: 120px;
+        height: 56px;
+        margin-top: -10px;
+        z-index: 1;
+        position: relative;
+      }
+  
+      .typewriter .keyboard:before, .typewriter .keyboard:after {
+        content: "";
+        position: absolute;
+      }
+  
+      .typewriter .keyboard:before {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 7px;
+        background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+        transform: perspective(10px) rotateX(2deg);
+        transform-origin: 50% 100%;
+      }
+  
+      .typewriter .keyboard:after {
+        left: 2px;
+        top: 25px;
+        width: 11px;
+        height: 4px;
+        border-radius: 2px;
+        box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key),
+                    60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key),
+                    22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key),
+                    60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key);
+        animation: keyboard05 var(--duration) linear infinite;
+      }
+  
+      @keyframes bounce05 {
+        85%, 92%, 100% { transform: translateY(0); }
+        89% { transform: translateY(-4px); }
+        95% { transform: translateY(2px); }
+      }
+  
+      @keyframes slide05 {
+        5% { transform: translateX(14px); }
+        15%, 30% { transform: translateX(6px); }
+        40%, 55% { transform: translateX(0); }
+        65%, 70% { transform: translateX(-4px); }
+        80%, 89% { transform: translateX(-12px); }
+        100% { transform: translateX(14px); }
+      }
+  
+      @keyframes paper05 {
+        5% { transform: translateY(46px); }
+        20%, 30% { transform: translateY(34px); }
+        40%, 55% { transform: translateY(22px); }
+        65%, 70% { transform: translateY(10px); }
+        80%, 85% { transform: translateY(0); }
+        92%, 100% { transform: translateY(46px); }
+      }
+  
+      @keyframes keyboard05 {
+        5%, 12%, 21%, 30%, 39%, 48%, 57%, 66%, 75%, 84% {
+          box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key),
+                      60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key),
+                      22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key),
+                      60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key);
+        }
+      }
+   /* ==========End LOADER ========== */
+
+.navbar-brand img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    position: absolute;
+    top: -5px; 
+    left: 15px;
+  }
+  .navbar {
+    padding-top: 30px; 
+    padding-bottom: 10px;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   
+   
+    margin-bottom: 20px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+
+  .navbar-nav .nav-link {
+    color: #333 !important; 
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link.active {
+    color: #28a745 !important; 
+  }
+
+
+  .navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #28a745;
+    left: 0;
+    bottom: -5px;
+    transition: width 0.3s ease;
+  }
+
+  .navbar-nav .nav-link:hover::after,
+  .navbar-nav .nav-link.active::after {
+    width: 100%;
+  }
+
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .navbar li {
+    margin-right: 20px;
+    
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 12px;
+    display: block;
+    transition: background-color 0.3s;
+  }
+
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #1a73e8;
+}
+
+.navbar .logo img {
+    width: 35px;
+    margin-right: 12px;
+}
+
+.navbar .menu {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .menu a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.navbar .menu a:hover {
+    color: #1a73e8;
+}
+
+.navbar .buttons .login {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar .buttons .login:hover {
+    color: #1a73e8;
+}
+
+/*=====================end navbar=========================================*/
+
+
+
+/*Upload File*/
+.container {
+    margin: 20px auto;
+    padding: 30px 20px; /* ده بيدي مسافة من اليمين والشمال */
+    max-width: 90vw;     /* عشان ميتمليش الشاشة كلها */
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #7bcb8e, #249b40);
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  .folder {
+    position: relative;
+    animation: float 2.5s infinite ease-in-out;
+    transition: transform 0.3s ease;
+  }
+  
+  .folder:hover {
+    transform: scale(1.05);
+  }
+  
+  .folder .top {
+    background: linear-gradient(135deg, #ff9a56, #ff6f56);
+    width: 80px;
+    height: 20px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .folder .bottom {
+    background: linear-gradient(135deg, #ffe563, #ffc663);
+    width: 120px;
+    height: 80px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 0 10px 10px 10px;
+    position: relative;
+    top: -10px;
+  }
+  
+  .custom-file-upload {
+    font-size: 1.1em;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: inline-block;
+    width: 220px;
+  }
+  
+  .custom-file-upload:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+  
+  .custom-file-upload input[type="file"] {
+    display: none;
+  }
+  
+  .file-info {
+    margin-top: 15px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    transition: opacity 0.3s ease;
+  }
+  
+  .next-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    background-color: #ffffff;
+    color: #249b40;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  .next-btn:hover {
+    transform: scale(1.05);
+    background-color: #e6ffe6;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  .remove-btn {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95em;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .remove-btn:hover {
+    background-color: #e60000;
+    transform: scale(1.05);
+  }
+  
+
+  @media (max-width: 600px) {
+    .container {
+      margin: 20px;
+      padding: 20px;
+    }
+  
+    .custom-file-upload,
+    .next-btn,
+    .remove-btn {
+      width: 100%;
+      max-width: 280px;
+    }
+  
+    .folder .top {
+      width: 60px;
+      height: 16px;
+    }
+  
+    .folder .bottom {
+      width: 100px;
+      height: 70px;
+    }
+  }
+  
+
+  
