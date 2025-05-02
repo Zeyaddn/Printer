@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Lato:ital@1&display=swap');
 
 * {
     margin: 0;
@@ -309,8 +310,8 @@ body {
 /*Upload File*/
 .container {
     margin: 20px auto;
-    padding: 30px 20px; /* ده بيدي مسافة من اليمين والشمال */
-    max-width: 90vw;     /* عشان ميتمليش الشاشة كلها */
+    padding: 30px 20px; 
+    max-width: 90vw;     
     width: 100%;
     font-family: "Poppins", sans-serif;
     display: flex;
@@ -456,6 +457,59 @@ body {
       height: 70px;
     }
   }
+/*=====================end File Upload=========================================*/
   
 
+/*=====================error message=========================================*/
+
+  #errorMessage {
+    position: fixed;
+    top: 20px;
+    right: -400px;
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 400px;
+    opacity: 0;
+  }
   
+  .slide-in {
+    animation: slideFromRight 0.5s ease-out forwards;
+  }
+  
+  .slide-out {
+    animation: slideToRight 0.5s ease-in forwards;
+  }
+  
+  @keyframes slideFromRight {
+    from {
+      right: -400px;
+      opacity: 0;
+    }
+    to {
+      right: 20px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideToRight {
+    from {
+      right: 20px;
+      opacity: 1;
+    }
+    to {
+      right: -400px;
+      opacity: 0;
+    }
+  }
+  
+
+/*=====================end error message=========================================*/
+
+
+
+
+.pay{
+   font-family: "Lato", sans-serif;
+   font-size: 18px;
+  
+}

@@ -41,7 +41,7 @@
           <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Our Team</a></li>
         </ul>
-        <div class="d-flex align-items-center ms-auto gap-2">
+        <div class="d-flex align-items-center ms-auto mt-2 gap-2">
           <a href="#" class="btn btn-success btn-md"><i class="bi bi-box-arrow-in-right"></i> Sign In</a>
           <a href="#" class="btn btn-success btn-md"><i class="bi bi-person-plus"></i> Sign Up</a>
         </div>
@@ -50,24 +50,161 @@
   </nav>
   <!-- End Navbar-->
 
-  <!-- Upload File --> 
-  <div class="container">
-    <div class="folder">
-      <div class="top"></div>
-      <div class="bottom"></div>
-    </div>
-  
-    <label class="custom-file-upload">
-      <input id="fileInput" type="file" />
-      Choose a file
-    </label>
-  
-    <div id="fileInfo" class="file-info"></div>
-    <button id="removeBtn" class="remove-btn" style="display:none;">حذف الملف</button>
-  
-    <button class="next-btn">Next</button>
+
+
+<!-- Upload File Section -->
+<div id="uploadSection" class="container">
+  <div class="folder">
+    <div class="top"></div>
+    <div class="bottom"></div>
+  </div>
+
+  <label class="custom-file-upload">
+    <input id="fileInput" type="file" />
+    Choose a file
+  </label>
+
+  <div id="fileInfo" class="file-info"></div>
+  <button id="removeBtn" class="remove-btn" style="display:none;">Delete File</button>
+
+  <button class="next-btn" onclick="nextSection()">Next</button>
+  <div class="alert alert-danger alert-dismissible fade" style="display: none;" id="errorMessage">
+    <button type="button" class="btn-close" onclick="closeError()" aria-label="Close"></button>
+    <strong>Error!</strong> You must choose a file!
   </div>
   
+</div>  <!-- End Upload File -->
+      
+
+<!-- Print Settings Section -->
+<div id="printSettingsSection" class="container my-5" style="display:none;">
+  <div class="card shadow p-4">
+    <h4 class="mb-4 fw-bold">Print Settings</h4>
+
+    <!-- Number of Copies -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Number of Copies</label>
+      <div class="input-group" style="max-width: 180px;">
+        <button class="btn btn-outline-secondary" type="button" onclick="updateCopies(-1)">-</button>
+        <input type="text" id="copyCount" class="form-control text-center" value="1" readonly>
+        <button class="btn btn-outline-secondary" type="button" onclick="updateCopies(1)">+</button>
+      </div>
+    </div>
+
+    <!-- Print Type -->
+    <div class="mb-3">
+      <label for="printType" class="form-label fw-semibold">Print Type</label>
+      <select class="form-select" id="printType">
+        <option selected>Color</option>
+        <option>Black & White</option>
+      </select>
+    </div>
+
+    <!-- Orientation -->
+    <div class="mb-3">
+      <label for="orientation" class="form-label fw-semibold">Page Orientation</label>
+      <select class="form-select" id="orientation">
+        <option selected>Portrait</option>
+        <option>Landscape</option>
+      </select>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-between mt-4">
+      <button class="btn btn-danger" onclick="goBackToUpload()">Cancel</button>
+
+     <button class="btn btn-success" onclick="showPaymentSection()">Next</button>
+    </div>
+    
+  </div>
+ </div>   <!--End Print Settings Section-->
+
+<!-- Payment Section -->
+<div id="paymentSection" class="container pay my-5" style="display: none;">
+  <div class="card shadow-lg p-5 rounded-4">
+    <h4 class="text-center fw-bold mb-4">Pay Your Order</h4>
+
+    <!-- Payment Summary -->
+    <div class="bg-light rounded-3 p-4 mb-4 text-center">
+      <h6 class="text-muted mb-1">Total Amount</h6>
+      <div class="fs-1 fw-bold text-success">EGP 2.00</div>
+      <p class="small text-muted">Transaction fees may apply based on your bank or wallet</p>
+    </div>
+
+    <!-- Payment Methods -->
+    <h5 class="mb-3 fw-semibold">Select Payment Method</h5>
+    <div class="row g-3">
+      
+      <!-- Vodafone Cash -->
+      <div class="col-md-6">
+        <div class="border rounded-3 p-3 d-flex align-items-center justify-content-between shadow-sm">
+          <div class="d-flex align-items-center gap-3">
+            <img class="rounded-circle" src="imag/xVodafone.Egypt.png.pagespeed.ic.png" style="height: 60px;">
+            <div>
+              <div class="fw-semibold">Vodafone Cash</div>
+              <div class="text-muted small">010*********</div>
+              <div class="input-group mt-2" style="width: 100%; max-width: 300px;">
+                <span class="input-group-text bg-white border-end-0">
+                  <img   class="rounded-circle" src="imag/xVodafone.Egypt.png.pagespeed.ic.png" alt="Vodafone" style="height: 28px;">
+                </span>
+                <input type="text" id="vodafoneNumber" maxlength="11"
+                       
+                       class="form-control form-control-sm border-start-0"
+                       placeholder="ادخل رقم يبدأ بـ 010 ويتكون من 11 رقم">
+              </div>
+              
+            </div>
+          </div>
+          <button id="vodafonePayBtn" class="btn btn-outline-danger btn-md ms-3" onclick="handlePayment('vodafone')">Pay</button>
+        </div>
+      </div>
+      
+
+      <!-- InstaPay -->
+      <div class="col-md-6">
+        <div class="border rounded-3 p-3 d-flex align-items-center justify-content-between shadow-sm">
+          <div class="d-flex align-items-center gap-3">
+            <img src="imag/instapay.png" style="height: 60px;">
+            <div>
+              <div class="fw-semibold">InstaPay</div>
+              <div class="text-muted small">Zeyad@email.com</div>
+              <div class="input-group mt-2" style="width: 100%; max-width: 300px;">
+                <span class="input-group-text bg-white border-end-0">
+                  <img src="imag/instapay.png" alt="InstaPay" style="height: 28px;">
+                </span>
+                <input type="text" maxlength="11" id="instapayNumber"
+                       class="form-control form-control-sm border-start-0"
+                       placeholder="ادخل رقم مكون من 11 رقم">
+              </div>
+              
+            </div>
+          </div>
+          <button id="instapayPayBtn" class="btn btn-outline-primary btn-md ms-3" onclick="handlePayment('instapay')">Pay</button>
+        </div>
+      </div>
+      
+
+    <!-- Confirm and Cancel -->
+    <div class="d-flex justify-content-between mt-5">
+      <button class="btn btn-secondary" onclick="goBackToPrintSettings()">Back</button>
+      <button id="confirmBtn" class="btn btn-success" style="display:none;">Confirm Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Success Message -->
+
+<div class="alert alert-success alert-dismissible fade" id="successMessage"
+     style="display: none; position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 300px;">
+  <button type="button" class="btn-close" onclick="closeSuccess()" aria-label="Close"></button>
+  <strong>تم الدفع بنجاح!</strong> يمكنك الآن تأكيد الطلب.
+</div>
+
+
+<audio id="successSound" src="sounds/sound effect.mp3" preload="auto"></audio>
+
+
+
 
         
   
