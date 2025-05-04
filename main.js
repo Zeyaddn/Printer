@@ -4,7 +4,7 @@ window.addEventListener("load", () => {
       loader.style.opacity = "0";
       loader.style.transition = "opacity 0.5s ease";
       setTimeout(() => loader.style.display = "none", 500);
-    }, 1000); 
+    }, 5000); 
   });
 
 //end Loader
@@ -140,10 +140,7 @@ function goBackToUpload() {
     document.getElementById("printSettingsSection").style.display = "block";
   }
 
-  function goBackToUpload() {
-    document.getElementById("printSettingsSection").style.display = "none";
-    // show upload section here
-  }
+
 
   function updateCopies(change) {
     const copyInput = document.getElementById("copyCount");
@@ -191,46 +188,72 @@ function goBackToUpload() {
     // هنا تقدر تنقل المستخدم للخطوة التالية
   }
 
-
   let paymentDone = false;
 
   function handlePayment(method) {
     if (paymentDone) return;
-
+  
     const inputId = method === 'vodafone' ? 'vodafoneNumber' : 'instapayNumber';
     const btnId = method === 'vodafone' ? 'vodafonePayBtn' : 'instapayPayBtn';
+    const otherInputId = method === 'vodafone' ? 'instapayNumber' : 'vodafoneNumber';
     const otherBtnId = method === 'vodafone' ? 'instapayPayBtn' : 'vodafonePayBtn';
-
+    const otherVerifyBtnId = method === 'vodafone' ? 'instapayVerifyBtn' : 'vodafoneVerifyBtn';
+  
     const number = document.getElementById(inputId).value.trim();
     const btn = document.getElementById(btnId);
-
+  
     if (number === '') {
       showError("من فضلك أدخل رقمك أولاً قبل الدفع.");
       return;
     }
-
+  
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Processing...';
-
+  
     setTimeout(() => {
+      
       document.getElementById("successSound").play().catch(() => {});
-
+  
       btn.innerHTML = '<i class="bi bi-check-circle-fill me-1 text-success"></i> Paid';
-
+  
       paymentDone = true;
-
+  
+      // تعطيل الوسيلة التانية تمامًا
       document.getElementById(otherBtnId).disabled = true;
-
+      document.getElementById(otherVerifyBtnId).disabled = true;
+      document.getElementById(otherInputId).disabled = true;
+  
+      // إضافة طبقة شفافة أو مؤثر بصري للتمييز
+      const otherBox = method === 'vodafone' 
+        ? document.querySelector('#paymentSection .col-md-6:nth-child(2)')
+        : document.querySelector('#paymentSection .col-md-6:nth-child(1)');
+      otherBox.style.opacity = '0.5';
+      otherBox.style.pointerEvents = 'none';
+  
       // Show success alert
-      const success = document.getElementById("successMessage");
-      success.style.display = "block";
-      success.classList.add("show");
+     // Show success alert with payment message
+const success = document.getElementById("successMessage");
+success.innerHTML = `
+  <button type="button" class="btn-close" onclick="closeSuccess()" aria-label="Close"></button>
+  <strong>تم الدفع بنجاح!</strong> يمكنك الآن تأكيد الطلب.
+`;
+success.style.display = "block";
+success.classList.add("show");
 
       // Show confirm button
       document.getElementById("confirmBtn").style.display = "inline-block";
     }, 2000);
   }
-
+  function disableMethod(method) {
+    const inputId = method === 'vodafone' ? 'vodafoneNumber' : 'instapayNumber';
+    const payBtnId = method === 'vodafone' ? 'vodafonePayBtn' : 'instapayPayBtn';
+    const verifyBtnId = method === 'vodafone' ? 'vodafoneVerifyBtn' : 'instapayVerifyBtn';
+  
+    document.getElementById(inputId).disabled = true;
+    document.getElementById(payBtnId).disabled = true;
+    document.getElementById(verifyBtnId).disabled = true;
+  }
+  
   function closeSuccess() {
     const success = document.getElementById("successMessage");
     success.style.display = "none";
@@ -255,5 +278,87 @@ function goBackToUpload() {
   }
 
 
+  let currentMethod = null;
 
+  function startVerification(method) {
+    const btnId = method === 'vodafone' ? 'vodafoneVerifyBtn' : 'instapayVerifyBtn';
+    const button = document.getElementById(btnId);
+  
+    button.innerText = 'Wait...';
+    button.disabled = true;
+  
+    setTimeout(() => {
+      button.innerText = 'Verification'; // ممكن نسيبه أو نخليه hidden بعدين
+      button.style.display = 'none';
+      button.disabled = false;
+  
+      showOtpForm(method);
+    }, 1500);
+  }
+  
+
+  function showOtpForm(method) {
+    currentMethod = method;
+    document.getElementById("otpForm").style.display = "flex";
+    document.getElementById("overlayBlur").style.display = "block"; // إظهار الخلفية الضبابية
+  }
+  
+  function closeOtpForm() {
+    document.getElementById("otpForm").style.display = "none";
+    document.getElementById("overlayBlur").style.display = "none"; // إخفاء الخلفية الضبابية
+  }
+  
+  function clearOtp() {
+    const inputs = document.querySelectorAll('#otpForm .input-fields input');
+    inputs.forEach(input => input.value = '');
+  }
+  
+  function verifyOtp() {
+    // نتحقق أن المستخدم كتب أرقام
+    const inputs = document.querySelectorAll('#otpForm .input-fields input');
+    let hasInput = false;
+    inputs.forEach(input => {
+      if (input.value.trim() !== '') {
+        hasInput = true;
+      }
+    });
+  
+    if (!hasInput) {
+      showError("من فضلك أدخل كود التحقق.");
+      return;
+    }
+  
+    // إظهار رسالة النجاح
+    const success = document.getElementById("successMessage");
+    success.innerHTML = `
+      <button type="button" class="btn-close" onclick="closeSuccess()" aria-label="Close"></button>
+      <strong>تم التحقق بنجاح!</strong> يمكنك الآن المتابعة للدفع.
+    `;
+    success.style.display = "block";
+    success.classList.add("show");
+  
+    // إظهار زر الدفع الخاص بالوسيلة المحددة
+    if (currentMethod === 'vodafone') {
+      document.getElementById("vodafonePayBtn").style.display = "inline-block";
+    } else if (currentMethod === 'instapay') {
+      document.getElementById("instapayPayBtn").style.display = "inline-block";
+    }
+  
+    // إغلاق الفورم
+    closeOtpForm();
+  }
+  
+  function handleInputChange(method) {
+    const inputId = method === 'vodafone' ? 'vodafoneNumber' : 'instapayNumber';
+    const verifyBtnId = method === 'vodafone' ? 'vodafoneVerifyBtn' : 'instapayVerifyBtn';
+  
+    const number = document.getElementById(inputId).value.trim();
+    const verifyBtn = document.getElementById(verifyBtnId);
+  
+    if (number.length === 11 && number.match(/^\d{11}$/)) {
+      verifyBtn.style.display = "inline-block";
+    } else {
+      verifyBtn.style.display = "none";
+    }
+  }
   
